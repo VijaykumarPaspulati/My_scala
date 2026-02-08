@@ -34,9 +34,9 @@ jobs:
       # Step 4: Compile Scala files (optional for larger projects)
       - name: Compile Scala
         run: |
-          scalac demo.scala  # Adjust path as needed
+          scalac demo1.scala  # Adjust path as needed
 
       # Step 5: Run Scala file
       - name: Run Scala
         run: |
-          scala src/Main.scala    # Replace with your main Scala file
+          scala test.scala    # Replace with your main Scala file
