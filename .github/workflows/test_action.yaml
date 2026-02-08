@@ -1,0 +1,29 @@
+name: Run Script on Push
+
+# Trigger the workflow on any push to any branch
+on:
+  push:
+    branches:
+      - '**'   # '**' means all branches. Replace with 'main' if you want only main.
+
+jobs:
+  run-file:
+    runs-on: ubuntu-latest   # Use a Linux runner
+
+    steps:
+      # Step 1: Checkout your repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node/Python/Java etc (optional)
+      # Example: Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # Step 3: Run your file
+      - name: Run script
+        run: |
+          echo "Running my script..."
+          python test1.py   # Replace with your command or script
