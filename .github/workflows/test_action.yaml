@@ -1,10 +1,10 @@
 name: Run Script on Push
 
 # Trigger the workflow on any push to any branch
-on:
-  push:
-    branches:
-      - '**'   # '**' means all branches. Replace with 'main' if you want only main.
+on: [push]
+  # push:
+  #   branches:
+  #     - '**'   # '**' means all branches. Replace with 'main' if you want only main.
 
 jobs:
   run-file:
