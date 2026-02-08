@@ -1,29 +1,42 @@
-name: Run Script on Push
+name: Scala CI
 
-# Trigger the workflow on any push to any branch
-on: [push]
-  # push:
-  #   branches:
-  #     - '**'   # '**' means all branches. Replace with 'main' if you want only main.
+# Trigger workflow on pushes and pull requests
+on:
+  push:
+    branches:
+      - '**'      # All branches
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
-  run-file:
-    runs-on: ubuntu-latest   # Use a Linux runner
+  build-and-run:
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout your repository
+      # Step 1: Checkout the repo
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node/Python/Java etc (optional)
-      # Example: Python
-      - name: Set up Scala
-        uses: actions/setup-scala@v2
+      # Step 2: Set up Java (Scala needs Java)
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          Scala-version: '2.2'
+          distribution: 'temurin'  # Or adopt, zulu, etc.
+          java-version: '17'       # Match your Scala version
 
-      # Step 3: Run your file
-      - name: Run script
+      # Step 3: Install Scala
+      - name: Install Scala
         run: |
-          echo "Running my script..."
-          scala demo.scala   # Replace with your command or script
+          sudo apt-get update
+          sudo apt-get install -y scala
+
+      # Step 4: Compile Scala files (optional for larger projects)
+      - name: Compile Scala
+        run: |
+          scalac demo.scala  # Adjust path as needed
+
+      # Step 5: Run Scala file
+      - name: Run Scala
+        run: |
+          scala src/Main.scala    # Replace with your main Scala file
